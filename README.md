@@ -1,4 +1,4 @@
-# Kubernetes Microservices NAGP
+# Kubernetes Microservices NAGP assignment
 This project will present how the microservices work and how to deploy the microservices on Kubernetes.
 Google Kubernetes Engine (GKE) is used as infrastructure for this project.
 
