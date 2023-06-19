@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-service-mysql
+spec:
+  selector:
+    matchLabels:
+      app: employee-service-mysql
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: employee-service-mysql
+    spec:
+      containers:
+        - name: employee-service
+          image: parmodhchawla/employeeservice:0.0.1  #It will fetch image from DockerHub
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9000
+          env:
+            - name: DB_HOST
+              valueFrom :
+                configMapKeyRef :
+                  name : db-config
+                  key :  host
+
+            - name: DB_NAME
+              valueFrom :
+                configMapKeyRef :
+                  name : db-config
+                  key :  dbName
+
+            - name: DB_USERNAME
+              value: root
+
+            - name: DB_PASSWORD    #It will fetch password from secrets
+              valueFrom :
+                secretKeyRef :
+                  name : mysql-secrets
+                  key :  password
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service
+metadata:
+  name: employee-service-mysql
+spec:
+  selector:
+    app: employee-service-mysql
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+  type: LoadBalancer  # For exposing the service to external world
+
