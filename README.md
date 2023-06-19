@@ -16,7 +16,7 @@ Image:  parmodhchawla/employeeservice:0.0.1
 - Create Kubernetes Cluster.
 - Refer to https://cloud.google.com/kubernetes-engine/docs/quickstart
 
-### 2. Clone the project in Google cloud shell from Github (url:) and navigate to the project directory -> Yaml Files
+### 2. Clone the project in Google cloud shell from Github (url: https://github.com/Parmodlhchawla89/nagpkubernates.git) and navigate to the project directory -> Yaml Files
   - Deploy the DB on kubernate with the following commands:
       - kubectl apply -f mysql-secrets.yaml - This will add the secrets being used for the DB
       - kubectl apply -f mysql-configMap.yaml - This file contains the DB name and Host which will be added in to environmanet variables.
